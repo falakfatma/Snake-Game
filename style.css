@@ -1,0 +1,34 @@
+.body {
+  height: 100vh;
+  width: 100%;
+  background-color: #266f06;
+  
+}
+#board{
+ background: linear-gradient(to right, #adee5d, #6fd714);
+  display: flex;
+  margin: auto;
+/*   border-radius: 1rem; */
+  position: relative;
+}
+
+
+.hide{
+  display: none;
+}
+.gameAlert{
+  background: linear-gradient(to right, #689f38, #d0e1c1);
+  border-radius: 2rem;
+  font-size: x-large;
+  padding: 2rem;
+  top: 40%;
+  left: 40%;
+transform: translate(-50px,-50px);
+  width: 18rem;
+  letter-spacing: 2px;
+  word-spacing: 4px;
+position: absolute;
+  opacity: 43;
+    height: 11rem;
+  z-index: 222;
+}
