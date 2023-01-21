@@ -17,8 +17,8 @@ let appleX = Math.floor(Math.random() * (canvas.width - tileSize))
 let appleY = Math.floor(Math.random() * (canvas.height - 100))
 let snake = [
   {
-    x :  tileSize * 3,
-    y : 10,
+    x: tileSize,
+    y: 10,
   },
 ]
 
@@ -28,18 +28,18 @@ gameAlert.addEventListener('click', () => {
 })
 
 function startGame() {
+  player.start = true;
   gamePlay();
-  // window.webkitRequestAnimationFrame(gamePlay)
 }
 
 function gamePlay() {
-  player.start = true;
+  console.log(player.start)
+  if(player.start){
   drawSnake()
   createFood()
-  setInterval(moveSnake, 57)
-  // drawFood()
-  // moveSnake()
-  // window.webkitRequestAnimationFrame(gamePlay)
+  setInterval(gameOver, 100)
+  setInterval(moveSnake, 100)
+  }
 }
 document.addEventListener('keydown', changeDirection)
 
@@ -54,15 +54,14 @@ function moveSnake() {
     x: snake[0].x + xDirection,
     y: snake[0].y + yDirection
   }
-  console.log('before unshift', snake.length)
+  // console.log('before unshift', snake.length)
   snake.unshift(snakeHead)
-  console.log(snake.length)
-  if(snake[0].x == appleX && snake[0].y == appleY){
+  // console.log(snake.length)
+  if (snake[0].x == appleX && snake[0].y == appleY) {
     console.log(`you eat apple`)
-   // snake.push(snakeHead)
   }
-  else{
-    const tail = snake[snake.length-1];
+  else {
+    const tail = snake[snake.length - 1];
     ctx.clearRect(tail.x, tail.y, tileSize, tileSize)
     snake.pop()
   }
@@ -73,66 +72,64 @@ function drawSnake() {
   ctx.fillStyle = 'yellow'
   snake.forEach(element => {
     ctx.fillRect(element.x, element.y, tileSize, tileSize)
-    // ctx.strokeRect(element.x, element.y, tileSize, tileSize)
   })
 }
 
-// function clearSnake(x, y, width, height){
-//   ctx.clearRect(x, y, tileSize, tileSize)
-//   ctx.clearRect(x, y, tileSize, tileSize)
-// }
 
 function gameOver() {
-
+  if (snake[0].x == 0 || snake[0].x == canvas.width - tileSize || snake[0].y == 0 || snake[0].y == canvas.width - tileSize) {
+    console.log(`You Are Out!`)
+   //  player.start = false
+   //  console.log(player.start)
+   // gameAlert.classList.remove('hide')
+  }
 }
 
 // Change Direction
 function changeDirection(event) {
-  console.log(snake.length)
   // up
   if (event.keyCode == 38) {
-    if(yDirection == tileSize)
+    if (yDirection == tileSize)
       return;
-      const tail = snake[snake.length-1];
+    const tail = snake[snake.length - 1];
     ctx.clearRect(tail.x, tail.y, tileSize, tileSize)
-    yDirection= - tileSize; //move one tile up
-    // console.log(tail.x-(tileSize*2), tail.y-(tileSize*2))
+    yDirection = - tileSize; //move one tile up
     xDirection = 0;
   }
   //down
   if (event.keyCode == 40) {
-    if(yDirection == -tileSize)
+    if (yDirection == -tileSize)
       return;
-      const tail = snake[snake.length-1];
+    const tail = snake[snake.length - 1];
     ctx.clearRect(tail.x, tail.y, tileSize, tileSize)
-    yDirection= tileSize ;//move one tile down
+    yDirection = tileSize;//move one tile down
     xDirection = 0;
   }
   //left
   if (event.keyCode == 37) {
-    if(xDirection == tileSize)
+    if (xDirection == tileSize)
       return;
-      const tail = snake[snake.length-1];
+    const tail = snake[snake.length - 1];
     ctx.clearRect(tail.x, tail.y, tileSize, tileSize)
     xDirection = -tileSize;//move one tile left
     yDirection = 0;
   }
   //right
   if (event.keyCode == 39) {
-    if(xDirection == -tileSize)
+    if (xDirection == -tileSize)
       return;
-      const tail = snake[snake.length-1];
+    const tail = snake[snake.length - 1];
     ctx.clearRect(tail.x, tail.y, tileSize, tileSize)
     xDirection = tileSize;//move one tile right
-    yDirection= 0 ;
+    yDirection = 0;
   }
 
-changeSnakePosition()
+  changeSnakePosition()
 }
 
-function changeSnakePosition(){
-    snake.forEach(element => {
-      element.x = element.x + xDirection,
+function changeSnakePosition() {
+  snake.forEach(element => {
+    element.x = element.x + xDirection,
       element.y = element.y + yDirection
   })
- }
+}
