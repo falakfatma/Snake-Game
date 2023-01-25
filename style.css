@@ -18,7 +18,8 @@
   display: none;
 }
 .gameAlert{
-  background: linear-gradient(to right, #689f38, #d0e1c1);
+/*   background: linear-gradient(to right, #689f38, #d0e1c1); */
+  background: #689f38;
   border-radius: 2rem;
   font-size: x-large;
   padding: 2rem;
