@@ -1,10 +1,12 @@
 let gameAlert = document.querySelector('.gameAlert')
 let canvas = document.getElementById('board')
 let ctx = canvas.getContext('2d')
+let score = document.getElementById('score')
 let tileSize = 10;
 let tileCount = 30;
 let xDirection = tileSize;
 let yDirection = 0;
+let num = 0
 let player = {}
 let keys = {
   ArrowUp: 'ArrowUp',
@@ -70,7 +72,7 @@ function draw_food() {
 }
 
 function drawSnakePart(snakePart){
-  ctx.fillStyle = 'blue'
+  ctx.fillStyle = 'goldenrod'
   ctx.fillRect(snakePart.x, snakePart.y, tileSize, tileSize)
 }
 
@@ -87,8 +89,8 @@ function gameOver() {
   }
   let topOut = snake[0].y <= 0;
   let leftOut = snake[0].x <= 0 - tileSize;
-  let bottomOut = snake[0].y >= canvas.height - tileSize;
-  let rightOut = snake[0].x >= canvas.width - tileSize;
+  let bottomOut = snake[0].y > canvas.height - tileSize;
+  let rightOut = snake[0].x > canvas.width - tileSize;
   return topOut || leftOut || bottomOut || rightOut 
 }
 function clearScreen(){
@@ -103,6 +105,7 @@ function changeDirection(event) {
       return;
     yDirection = - tileSize; //move one tile up
     xDirection = 0;
+     if (event.keyCode == 38)return;
   }
   //down
   if (event.keyCode == 40) {
@@ -110,6 +113,8 @@ function changeDirection(event) {
       return;
     yDirection = tileSize;//move one tile down
     xDirection = 0;
+     if (event.keyCode == 40)return;
+    
   }
   //left
   if (event.keyCode == 37) {
@@ -117,6 +122,8 @@ function changeDirection(event) {
       return;
     xDirection = -tileSize;//move one tile left
     yDirection = 0;
+     if (event.keyCode == 37)return;
+    
   }
   //right
   if (event.keyCode == 39) {
@@ -124,6 +131,8 @@ function changeDirection(event) {
       return;
     xDirection = tileSize;//move one tile right
     yDirection = 0;
+     if (event.keyCode == 39)return;
+    
   }
 
   changeSnakePosition()
@@ -142,6 +151,8 @@ function moveSnake() {
   }
   snake.unshift(snakeHead)
   if (snake[0].x == foodX && snake[0].y == foodY) {
+    score.innerHTML = num +=1
+
     generateFood()
   }
   else {
