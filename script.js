@@ -87,7 +87,7 @@ function gameOver() {
   for(let i = 1 ;i <snake.length;i++){
    if( snake[i].x == snake[0].x && snake[i].y == snake[0].y ) return true;
   }
-  let topOut = snake[0].y <= 0;
+  let topOut = snake[0].y < 0;
   let leftOut = snake[0].x <= 0 - tileSize;
   let bottomOut = snake[0].y > canvas.height - tileSize;
   let rightOut = snake[0].x > canvas.width - tileSize;
